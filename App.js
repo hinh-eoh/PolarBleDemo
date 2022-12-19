@@ -69,9 +69,12 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    eventEmitter.addListener('onDeviceFound', device =>
-      setDevices([...devices, device]),
-    );
+    eventEmitter.addListener('onDeviceFound', device => {
+      const findDevice = devices.find(item => item.id === device.id);
+      if (!findDevice) {
+        setDevices([...devices, device]);
+      }
+    });
   }, [devices]);
 
   useEffect(() => {
