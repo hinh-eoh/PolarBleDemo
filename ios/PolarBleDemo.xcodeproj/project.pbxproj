@@ -8,12 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* PolarBleDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* PolarBleDemoTests.m */; };
-		0C80B921A6F3F58F76C31292 /* libPods-PolarBleDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DCACB8F33CDC322A6C60F78 /* libPods-PolarBleDemo.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		7699B88040F8A987B510C191 /* libPods-PolarBleDemo-PolarBleDemoTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-PolarBleDemo-PolarBleDemoTests.a */; };
+		5CD7AAE2D4A948ADC45A1F38 /* libPods-PolarBleDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BC85B3AEDA19F534F97522A2 /* libPods-PolarBleDemo.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		8312F24FA9763BB93C4B1DB1 /* libPods-PolarBleDemo-PolarBleDemoTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A54B53E33187F95B86C88606 /* libPods-PolarBleDemo-PolarBleDemoTests.a */; };
+		AEBB4CB9294971DF007E7671 /* PolarDemoModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEBB4CB8294971DF007E7671 /* PolarDemoModule.swift */; };
+		AEBB4CBB29497334007E7671 /* PolarDemoModule.m in Sources */ = {isa = PBXBuildFile; fileRef = AEBB4CBA29497334007E7671 /* PolarDemoModule.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,13 +38,18 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = PolarBleDemo/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = PolarBleDemo/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = PolarBleDemo/main.m; sourceTree = "<group>"; };
-		19F6CBCC0A4E27FBF8BF4A61 /* libPods-PolarBleDemo-PolarBleDemoTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PolarBleDemo-PolarBleDemoTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B4392A12AC88292D35C810B /* Pods-PolarBleDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PolarBleDemo.debug.xcconfig"; path = "Target Support Files/Pods-PolarBleDemo/Pods-PolarBleDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-PolarBleDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PolarBleDemo.release.xcconfig"; path = "Target Support Files/Pods-PolarBleDemo/Pods-PolarBleDemo.release.xcconfig"; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-PolarBleDemo-PolarBleDemoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PolarBleDemo-PolarBleDemoTests.debug.xcconfig"; path = "Target Support Files/Pods-PolarBleDemo-PolarBleDemoTests/Pods-PolarBleDemo-PolarBleDemoTests.debug.xcconfig"; sourceTree = "<group>"; };
-		5DCACB8F33CDC322A6C60F78 /* libPods-PolarBleDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PolarBleDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = PolarBleDemo/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-PolarBleDemo-PolarBleDemoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PolarBleDemo-PolarBleDemoTests.release.xcconfig"; path = "Target Support Files/Pods-PolarBleDemo-PolarBleDemoTests/Pods-PolarBleDemo-PolarBleDemoTests.release.xcconfig"; sourceTree = "<group>"; };
+		A54B53E33187F95B86C88606 /* libPods-PolarBleDemo-PolarBleDemoTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PolarBleDemo-PolarBleDemoTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		AE16742E294AF7FF00E0FC4C /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		AE167430294B00B700E0FC4C /* libPolarBleSdk.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libPolarBleSdk.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		AEBB4CB7294971DF007E7671 /* PolarBleDemo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PolarBleDemo-Bridging-Header.h"; sourceTree = "<group>"; };
+		AEBB4CB8294971DF007E7671 /* PolarDemoModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolarDemoModule.swift; sourceTree = "<group>"; };
+		AEBB4CBA29497334007E7671 /* PolarDemoModule.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PolarDemoModule.m; sourceTree = "<group>"; };
+		BC85B3AEDA19F534F97522A2 /* libPods-PolarBleDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PolarBleDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -51,7 +58,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7699B88040F8A987B510C191 /* libPods-PolarBleDemo-PolarBleDemoTests.a in Frameworks */,
+				8312F24FA9763BB93C4B1DB1 /* libPods-PolarBleDemo-PolarBleDemoTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -59,7 +66,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0C80B921A6F3F58F76C31292 /* libPods-PolarBleDemo.a in Frameworks */,
+				5CD7AAE2D4A948ADC45A1F38 /* libPods-PolarBleDemo.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -92,6 +99,9 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				AEBB4CB8294971DF007E7671 /* PolarDemoModule.swift */,
+				AEBB4CB7294971DF007E7671 /* PolarBleDemo-Bridging-Header.h */,
+				AEBB4CBA29497334007E7671 /* PolarDemoModule.m */,
 			);
 			name = PolarBleDemo;
 			sourceTree = "<group>";
@@ -99,9 +109,11 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				AE167430294B00B700E0FC4C /* libPolarBleSdk.a */,
+				AE16742E294AF7FF00E0FC4C /* CoreData.framework */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				5DCACB8F33CDC322A6C60F78 /* libPods-PolarBleDemo.a */,
-				19F6CBCC0A4E27FBF8BF4A61 /* libPods-PolarBleDemo-PolarBleDemoTests.a */,
+				BC85B3AEDA19F534F97522A2 /* libPods-PolarBleDemo.a */,
+				A54B53E33187F95B86C88606 /* libPods-PolarBleDemo-PolarBleDemoTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -160,7 +172,7 @@
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
 				C59DA0FBD6956966B86A3779 /* [CP] Embed Pods Frameworks */,
-				F6A41C54EA430FDDC6A6ED99 /* [CP] Copy Pods Resources */,
+				BD03533A5ADC8EEF87B33549 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -183,7 +195,7 @@
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				00EEFC60759A1932668264C0 /* [CP] Embed Pods Frameworks */,
-				E235C05ADACE081382539298 /* [CP] Copy Pods Resources */,
+				45CCBF4167AFAE2B13AC70A6 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -207,7 +219,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						LastSwiftMigration = 1120;
+						LastSwiftMigration = 1410;
 					};
 				};
 			};
@@ -283,6 +295,23 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PolarBleDemo/Pods-PolarBleDemo-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		45CCBF4167AFAE2B13AC70A6 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PolarBleDemo/Pods-PolarBleDemo-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PolarBleDemo/Pods-PolarBleDemo-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PolarBleDemo/Pods-PolarBleDemo-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		A55EABD7B0C7F3A422A6CC61 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -303,6 +332,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BD03533A5ADC8EEF87B33549 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PolarBleDemo-PolarBleDemoTests/Pods-PolarBleDemo-PolarBleDemoTests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PolarBleDemo-PolarBleDemoTests/Pods-PolarBleDemo-PolarBleDemoTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PolarBleDemo-PolarBleDemoTests/Pods-PolarBleDemo-PolarBleDemoTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		C38B50BA6285516D6DCD4F65 /* [CP] Check Pods Manifest.lock */ = {
@@ -344,40 +390,6 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PolarBleDemo-PolarBleDemoTests/Pods-PolarBleDemo-PolarBleDemoTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		E235C05ADACE081382539298 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-PolarBleDemo/Pods-PolarBleDemo-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-PolarBleDemo/Pods-PolarBleDemo-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PolarBleDemo/Pods-PolarBleDemo-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F6A41C54EA430FDDC6A6ED99 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-PolarBleDemo-PolarBleDemoTests/Pods-PolarBleDemo-PolarBleDemoTests-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-PolarBleDemo-PolarBleDemoTests/Pods-PolarBleDemo-PolarBleDemoTests-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PolarBleDemo-PolarBleDemoTests/Pods-PolarBleDemo-PolarBleDemoTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -413,6 +425,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */,
+				AEBB4CBB29497334007E7671 /* PolarDemoModule.m in Sources */,
+				AEBB4CB9294971DF007E7671 /* PolarDemoModule.swift in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -432,7 +446,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5B7EB9410499542E8C5724F5 /* Pods-PolarBleDemo-PolarBleDemoTests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = L723WML6HA;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -459,8 +475,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 89C6BE57DB24E9ADA2F236DE /* Pods-PolarBleDemo-PolarBleDemoTests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = L723WML6HA;
 				INFOPLIST_FILE = PolarBleDemoTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -486,8 +504,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 435N2GVNPP;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = PolarBleDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -497,8 +517,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.eohjsc.polar;
 				PRODUCT_NAME = PolarBleDemo;
+				SWIFT_OBJC_BRIDGING_HEADER = "PolarBleDemo-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -512,7 +533,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 435N2GVNPP;
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = PolarBleDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -522,8 +546,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.eohjsc.polar;
 				PRODUCT_NAME = PolarBleDemo;
+				SWIFT_OBJC_BRIDGING_HEADER = "PolarBleDemo-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};

@@ -42,7 +42,7 @@ static NSString *const kRNConcurrentRoot = @"concurrentRoot";
   _bridgeAdapter = [[RCTSurfacePresenterBridgeAdapter alloc] initWithBridge:bridge contextContainer:_contextContainer];
   bridge.surfacePresenter = _bridgeAdapter.surfacePresenter;
 #endif
-
+  
   NSDictionary *initProps = [self prepareInitialProps];
   UIView *rootView = RCTAppSetupDefaultRootView(bridge, @"PolarBleDemo", initProps);
 

@@ -6,7 +6,7 @@
  * @flow strict-local
  */
 
-import React from 'react';
+import React, {useEffect} from 'react';
 import type {Node} from 'react';
 import {
   SafeAreaView,
@@ -16,6 +16,9 @@ import {
   Text,
   useColorScheme,
   View,
+  NativeModules,
+  TouchableOpacity,
+  NativeEventEmitter,
 } from 'react-native';
 
 import {
@@ -25,6 +28,10 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+import {PERMISSIONS, request} from 'react-native-permissions';
+
+const {PolarBleModule} = NativeModules;
+const eventEmitter = new NativeEventEmitter(PolarBleModule);
 
 /* $FlowFixMe[missing-local-annot] The type annotation(s) required by Flow's
  * LTI update could not be added via codemod */
@@ -61,12 +68,54 @@ const App: () => Node = () => {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
 
+  useEffect(() => {
+    request(PERMISSIONS.IOS.LOCATION_WHEN_IN_USE);
+
+    eventEmitter.addListener('onDeviceFound', device => {
+      // console.log('aaaaaa2', device);
+      alert(JSON.stringify(device));
+    });
+
+    eventEmitter.addListener('EcgData', ecgData => {
+      alert(JSON.stringify(ecgData));
+    });
+  }, []);
+
   return (
     <SafeAreaView style={backgroundStyle}>
       <StatusBar
         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
         backgroundColor={backgroundStyle.backgroundColor}
       />
+      <Text
+        style={{color: 'blue', fontSize: 20, marginBottom: 20}}
+        onPress={() => PolarBleModule.startScan()}>
+        Start scan
+      </Text>
+      <Text
+        style={{color: 'blue', fontSize: 20, marginBottom: 20}}
+        onPress={() => PolarBleModule.connectToDevice('B989BC2E')}>
+        Connect Device
+      </Text>
+      <Text
+        style={{color: 'blue', fontSize: 20, marginBottom: 20}}
+        onPress={() => PolarBleModule.streamECG('B989BC2E')}>
+        Start Ecg stream
+      </Text>
+
+      {/* <TouchableOpacity
+        onPress={() => {
+          console.log('kkkkkk1');
+
+          // PolarBleDemo.startScan();
+          PolarBleModule.connectToDevice('B989BC2E');
+
+          setTimeout(() => {
+            PolarBleModule.streamECG('B989BC2E');
+          }, 5000);
+        }}
+        style={{width: 200, height: 200, backgroundColor: 'red'}}
+      /> */}
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
         style={backgroundStyle}>

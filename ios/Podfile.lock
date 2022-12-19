@@ -76,6 +76,11 @@ PODS:
   - hermes-engine (0.70.6)
   - libevent (2.1.12)
   - OpenSSL-Universal (1.1.1100)
+  - Permission-LocationWhenInUse (3.6.1):
+    - RNPermissions
+  - PolarBleSdk (3.3.6):
+    - RxSwift (~> 6.5.0)
+    - SwiftProtobuf (~> 1.0)
   - RCT-Folly (2021.07.22.00):
     - boost
     - DoubleConversion
@@ -368,7 +373,11 @@ PODS:
     - React-jsi (= 0.70.6)
     - React-logger (= 0.70.6)
     - React-perflogger (= 0.70.6)
+  - RNPermissions (3.6.1):
+    - React-Core
+  - RxSwift (6.5.0)
   - SocketRocket (0.6.0)
+  - SwiftProtobuf (1.20.3)
   - Yoga (1.14.0)
   - YogaKit (1.18.1):
     - Yoga (~> 1.14)
@@ -403,6 +412,8 @@ DEPENDENCIES:
   - hermes-engine (from `../node_modules/react-native/sdks/hermes/hermes-engine.podspec`)
   - libevent (~> 2.1.12)
   - OpenSSL-Universal (= 1.1.1100)
+  - Permission-LocationWhenInUse (from `../node_modules/react-native-permissions/ios/LocationWhenInUse`)
+  - PolarBleSdk (~> 3.3)
   - RCT-Folly (from `../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec`)
   - RCTRequired (from `../node_modules/react-native/Libraries/RCTRequired`)
   - RCTTypeSafety (from `../node_modules/react-native/Libraries/TypeSafety`)
@@ -432,6 +443,7 @@ DEPENDENCIES:
   - React-RCTVibration (from `../node_modules/react-native/Libraries/Vibration`)
   - React-runtimeexecutor (from `../node_modules/react-native/ReactCommon/runtimeexecutor`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
+  - RNPermissions (from `../node_modules/react-native-permissions`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -449,7 +461,10 @@ SPEC REPOS:
     - fmt
     - libevent
     - OpenSSL-Universal
+    - PolarBleSdk
+    - RxSwift
     - SocketRocket
+    - SwiftProtobuf
     - YogaKit
 
 EXTERNAL SOURCES:
@@ -465,6 +480,8 @@ EXTERNAL SOURCES:
     :podspec: "../node_modules/react-native/third-party-podspecs/glog.podspec"
   hermes-engine:
     :podspec: "../node_modules/react-native/sdks/hermes/hermes-engine.podspec"
+  Permission-LocationWhenInUse:
+    :path: "../node_modules/react-native-permissions/ios/LocationWhenInUse"
   RCT-Folly:
     :podspec: "../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec"
   RCTRequired:
@@ -519,6 +536,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/runtimeexecutor"
   ReactCommon:
     :path: "../node_modules/react-native/ReactCommon"
+  RNPermissions:
+    :path: "../node_modules/react-native-permissions"
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
@@ -542,6 +561,8 @@ SPEC CHECKSUMS:
   hermes-engine: 2af7b7a59128f250adfd86f15aa1d5a2ecd39995
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
   OpenSSL-Universal: ebc357f1e6bc71fa463ccb2fe676756aff50e88c
+  Permission-LocationWhenInUse: 3ba99e45c852763f730eabecec2870c2382b7bd4
+  PolarBleSdk: 9a7ff25ce80d2fae014e013977a14424df20c4bd
   RCT-Folly: 0080d0a6ebf2577475bda044aa59e2ca1f909cda
   RCTRequired: e1866f61af7049eb3d8e08e8b133abd38bc1ca7a
   RCTTypeSafety: 27c2ac1b00609a432ced1ae701247593f07f901e
@@ -569,10 +590,13 @@ SPEC CHECKSUMS:
   React-RCTVibration: c75ceef7aa60a33b2d5731ebe5800ddde40cefc4
   React-runtimeexecutor: 15437b576139df27635400de0599d9844f1ab817
   ReactCommon: 349be31adeecffc7986a0de875d7fb0dcf4e251c
+  RNPermissions: dcdb7b99796bbeda6975a6e79ad519c41b251b1c
+  RxSwift: 5710a9e6b17f3c3d6e40d6e559b9fa1e813b2ef8
   SocketRocket: fccef3f9c5cedea1353a9ef6ada904fde10d6608
+  SwiftProtobuf: b02b5075dcf60c9f5f403000b3b0c202a11b6ae1
   Yoga: 99caf8d5ab45e9d637ee6e0174ec16fbbb01bcfc
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: 3442af4b5d57f31f355cb687eaa22897ffe79ea4
+PODFILE CHECKSUM: d0fba4aa937cfdf35a5e69655ab88fce36eebd97
 
 COCOAPODS: 1.11.3
