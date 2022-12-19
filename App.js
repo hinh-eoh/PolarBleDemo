@@ -1,165 +1,206 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-
-import React, {useEffect} from 'react';
-import type {Node} from 'react';
+import React, {useEffect, useCallback, useState} from 'react';
 import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
   StyleSheet,
-  Text,
-  useColorScheme,
   View,
-  NativeModules,
-  TouchableOpacity,
+  Button,
   NativeEventEmitter,
+  Text,
+  ScrollView,
 } from 'react-native';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-import {PERMISSIONS, request} from 'react-native-permissions';
+import HrChart from './components/chart';
+import EcgChart from './components/ecgChart';
+import {mqttSendMessage} from './components/mqtt';
+import PolarBleModule from '@eohjsc/react-native-polar';
+import {permitPermissionFunction, keyPermission} from './utils/permission';
 
-const {PolarBleModule} = NativeModules;
 const eventEmitter = new NativeEventEmitter(PolarBleModule);
 
-/* $FlowFixMe[missing-local-annot] The type annotation(s) required by Flow's
- * LTI update could not be added via codemod */
-const Section = ({children, title}): Node => {
-  const isDarkMode = useColorScheme() === 'dark';
+const Row = ({device, setDeviceId, deviceId, setStatusDevice}) => {
+  const [status, setStatus] = useState('disconnected');
+
+  const onPressConnect = useCallback(() => {
+    if (status === 'disconnected') {
+      setDeviceId && setDeviceId(device?.id);
+    } else {
+      setDeviceId(null);
+      PolarBleModule.disConnect(deviceId);
+    }
+  }, [device?.id, deviceId, status, setDeviceId]);
+
+  useEffect(() => {
+    const event = eventEmitter.addListener('status_change', data => {
+      setStatus(data.status);
+      setStatusDevice(data.status);
+    });
+    return () => event?.remove;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  if (deviceId && deviceId !== device.id) {
+    return null;
+  }
+
   return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
+    <View style={styles.row}>
+      <View>
+        <Text style={styles.text}>{device?.name}</Text>
+        {status !== 'disconnected' && <Text style={styles.text}>{status}</Text>}
+      </View>
+
+      <Button
+        title={status === 'disconnected' ? 'Connect' : 'Disconnect'}
+        onPress={onPressConnect}
+      />
     </View>
   );
 };
 
-const App: () => Node = () => {
-  const isDarkMode = useColorScheme() === 'dark';
+const App = () => {
+  const [devices, setDevices] = useState([]);
+  const [deviceId, setDeviceId] = useState();
+  const [statusDevice, setStatusDevice] = useState();
+  const [dataHr, setDataHr] = useState([]);
+  const [ecgData, setEcgData] = useState([]);
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
-  useEffect(() => {
-    request(PERMISSIONS.IOS.LOCATION_WHEN_IN_USE);
-
-    eventEmitter.addListener('onDeviceFound', device => {
-      // console.log('aaaaaa2', device);
-      alert(JSON.stringify(device));
-    });
-
-    eventEmitter.addListener('EcgData', ecgData => {
-      alert(JSON.stringify(ecgData));
-    });
+  const onPressScan = useCallback(() => {
+    setDevices([]);
+    PolarBleModule.startScan();
   }, []);
 
+  useEffect(() => {
+    eventEmitter.addListener('onDeviceFound', device =>
+      setDevices([...devices, device]),
+    );
+  }, [devices]);
+
+  useEffect(() => {
+    let hrData = null;
+    let exgData = null;
+
+    if (deviceId) {
+      PolarBleModule.connectDevice(deviceId);
+      if (statusDevice === 'connected') {
+        setTimeout(() => {
+          PolarBleModule.streamECG(deviceId);
+        }, 2000);
+      }
+
+      hrData = eventEmitter.addListener('HrData', data => {
+        mqttSendMessage('PolarHrData', JSON.stringify(data));
+        const x = new Date();
+        setDataHr(prev => {
+          if (prev.length > 10) {
+            prev.shift();
+            return [...prev, {x, y: data.hr}];
+          } else {
+            return [...prev, {x, y: data.hr}];
+          }
+        });
+      });
+      exgData = eventEmitter.addListener('EcgData', data => {
+        mqttSendMessage('PolarEcgData', JSON.stringify(data));
+        setEcgData(prev => {
+          if (prev.length > 73 * 2) {
+            return prev.splice(73, prev.length).concat(data.samples);
+          } else {
+            return prev.concat(data.samples);
+          }
+        });
+      });
+    }
+
+    return () => {
+      if (hrData !== null) {
+        hrData.remove();
+      }
+      if (exgData !== null) {
+        exgData.remove();
+      }
+    };
+  }, [deviceId, statusDevice]);
+
+  useEffect(() => {
+    permitPermissionFunction(keyPermission.LOCATION, () => {});
+  }, []);
+
+  useEffect(() => {
+    if (!deviceId) {
+      setDataHr([]);
+      setEcgData([]);
+    }
+  }, [deviceId]);
+
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <Text
-        style={{color: 'blue', fontSize: 20, marginBottom: 20}}
-        onPress={() => PolarBleModule.startScan()}>
-        Start scan
-      </Text>
-      <Text
-        style={{color: 'blue', fontSize: 20, marginBottom: 20}}
-        onPress={() => PolarBleModule.connectToDevice('B989BC2E')}>
-        Connect Device
-      </Text>
-      <Text
-        style={{color: 'blue', fontSize: 20, marginBottom: 20}}
-        onPress={() => PolarBleModule.streamECG('B989BC2E')}>
-        Start Ecg stream
-      </Text>
+    <ScrollView>
+      <Button title="Scan" onPress={onPressScan} />
 
-      {/* <TouchableOpacity
-        onPress={() => {
-          console.log('kkkkkk1');
+      <View style={styles.wrap}>
+        {devices?.map(item => (
+          <Row
+            device={item}
+            setDeviceId={setDeviceId}
+            key={item.id}
+            deviceId={deviceId}
+            setStatusDevice={setStatusDevice}
+          />
+        ))}
+      </View>
 
-          // PolarBleDemo.startScan();
-          PolarBleModule.connectToDevice('B989BC2E');
-
-          setTimeout(() => {
-            PolarBleModule.streamECG('B989BC2E');
-          }, 5000);
-        }}
-        style={{width: 200, height: 200, backgroundColor: 'red'}}
-      /> */}
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.js</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
+      {!!dataHr.length && (
+        <View style={styles.wrapHr}>
+          <Text>Data Heart Rate</Text>
+          <View style={styles.dataHr}>
+            <Text style={styles.textHr}>{dataHr[dataHr.length - 1].y}</Text>
+          </View>
         </View>
-      </ScrollView>
-    </SafeAreaView>
+      )}
+      {!!dataHr.length && <HrChart dataHr={dataHr} />}
+
+      {!!ecgData.length && (
+        <View style={styles.wrapHr}>
+          <Text>Data ECG</Text>
+          <View style={styles.dataHr}>
+            {ecgData.slice(-73).map((item, index) => {
+              return (
+                <Text style={styles.textHr} key={index}>
+                  {item}
+                </Text>
+              );
+            })}
+          </View>
+        </View>
+      )}
+
+      {!!ecgData.length && <EcgChart dataEcg={ecgData} />}
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  text: {
+    fontWeight: '800',
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
+  row: {
+    marginTop: 20,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
+  wrap: {
+    paddingHorizontal: 20,
   },
-  highlight: {
-    fontWeight: '700',
+  wrapHr: {
+    paddingHorizontal: 20,
+    marginTop: 10,
+  },
+  dataHr: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    marginTop: 10,
+  },
+  textHr: {
+    marginRight: 10,
   },
 });
 

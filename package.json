@@ -10,9 +10,16 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@eohjsc/react-native-polar": "^0.2.2",
+    "paho-mqtt": "^1.1.0",
+    "precompiled-mqtt": "^4.3.14-beta",
     "react": "18.1.0",
     "react-native": "0.70.6",
-    "react-native-permissions": "^3.6.1"
+    "react-native-permissions": "^3.6.1",
+    "react-native-svg": "^13.6.0",
+    "sp-react-native-mqtt": "^0.5.1",
+    "victory-native": "^36.6.8",
+    "yarn": "^1.22.19"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

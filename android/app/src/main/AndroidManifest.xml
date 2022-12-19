@@ -2,6 +2,10 @@
   package="com.polarbledemo">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADVERTISE" />
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+    <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
 
     <application
       android:name=".MainApplication"
@@ -23,4 +27,6 @@
         </intent-filter>
       </activity>
     </application>
+
+    
 </manifest>
