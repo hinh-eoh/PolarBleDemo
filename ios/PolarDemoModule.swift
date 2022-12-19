@@ -24,7 +24,6 @@ class PolarBleModule: RCTEventEmitter, PolarBleApiObserver, PolarBleApiPowerStat
   private var STATUS_CHANGE = "status_change"
   private var BATTERY_LEVEL = "battery"
   private var ON_DEVICE_FOUND = "onDeviceFound"
-//  private var BLUETOOTH_STATUS = "bluetooth_status"
   
   public static var emitter : RCTEventEmitter!
   var api: PolarBleApi = PolarBleApiDefaultImpl.polarImplementation(
@@ -56,6 +55,9 @@ class PolarBleModule: RCTEventEmitter, PolarBleApiObserver, PolarBleApiPowerStat
     do {
       try self.api.disconnectFromDevice(id)
     } catch {
+      let result: NSMutableDictionary = [:]
+      result["status"] = "disconnect fail"
+      self.sendEvent(withName: self.STATUS_CHANGE, body: result)
       print("Disconnect fail")
     }
     
@@ -127,19 +129,20 @@ class PolarBleModule: RCTEventEmitter, PolarBleApiObserver, PolarBleApiPowerStat
         self.STATUS_CHANGE,
         self.BATTERY_LEVEL,
         self.HrData,
-//        self.BLUETOOTH_STATUS
       ]
     }
   
   func deviceConnecting(_ identifier: PolarBleSdk.PolarDeviceInfo) {
     let result: NSMutableDictionary = [:]
+    result["id"] = identifier.deviceId
     result["status"] = "connecting"
     self.sendEvent(withName: self.STATUS_CHANGE, body: result)
-    print("kkkkkk7\(identifier)")
+    print("kkkkkk7---- \(identifier)")
   }
   
   func deviceConnected(_ identifier: PolarBleSdk.PolarDeviceInfo) {
     let result: NSMutableDictionary = [:]
+    result["id"] = identifier.deviceId
     result["status"] = "connected"
     self.sendEvent(withName: self.STATUS_CHANGE, body: result)
     print("kkkkkk8\(identifier)")
@@ -147,6 +150,7 @@ class PolarBleModule: RCTEventEmitter, PolarBleApiObserver, PolarBleApiPowerStat
   
   func deviceDisconnected(_ identifier: PolarBleSdk.PolarDeviceInfo) {
     let result: NSMutableDictionary = [:]
+    result["id"] = identifier.deviceId
     result["status"] = "disconnected"
     self.sendEvent(withName: self.STATUS_CHANGE, body: result)
     print("kkkkkk9\(identifier)")
@@ -176,16 +180,10 @@ class PolarBleModule: RCTEventEmitter, PolarBleApiObserver, PolarBleApiPowerStat
   }
   
   func blePowerOn() {
-//    let result: NSMutableDictionary = [:]
-//    result["status"] = "1"
-//    self.sendEvent(withName: self.BLUETOOTH_STATUS, body: result)
     print("kkkkkk5")
   }
   
   func blePowerOff() {
-//    let result: NSMutableDictionary = [:]
-//    result["status"] = "0"
-//    self.sendEvent(withName: self.BLUETOOTH_STATUS, body: result)
     print("kkkkkk6")
   }
   
