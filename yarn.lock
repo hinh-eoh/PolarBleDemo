@@ -777,10 +777,10 @@
   resolved "https://registry.yarnpkg.com/@discoveryjs/json-ext/-/json-ext-0.5.7.tgz#1d572bfbbe14b7704e0ba0f39b74815b84870d70"
   integrity sha512-dBVuXR082gk3jsFp7Rd/JI4kytwGHecnCoTtXFb7DB6CNHp4rg5k1bhg0nWdLGLnOV71lmDzGQaLMy8iPLY0pw==
 
-"@eohjsc/react-native-polar@^0.2.2":
-  version "0.2.2"
-  resolved "https://registry.yarnpkg.com/@eohjsc/react-native-polar/-/react-native-polar-0.2.2.tgz#8d195539710f25dbe2d0ddb5645aa11b6f77f6fe"
-  integrity sha512-wPmBX8/DO8nvyNDe4sXoiIDLGi+7PGyKM2+J8O1om6448VnRizobE4XsfQjUdB2okpQQGxMiR1yWVT+KIM4EuQ==
+"@eohjsc/react-native-polar@^0.2.6":
+  version "0.2.6"
+  resolved "https://registry.yarnpkg.com/@eohjsc/react-native-polar/-/react-native-polar-0.2.6.tgz#8aed72c07dcafa3c6897decc562d5cddcbe92671"
+  integrity sha512-KSupBBEmm9UihGXfK8WTmlXCVW2FpP4SfpPC+g6E5IglKpbJ85Rbtg6KVetZQizWYJeCR+O1hP9qUV4eyHi9SQ==
 
 "@eslint/eslintrc@^0.4.3":
   version "0.4.3"

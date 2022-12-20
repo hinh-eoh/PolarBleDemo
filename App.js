@@ -16,28 +16,33 @@ import {permitPermissionFunction, keyPermission} from './utils/permission';
 
 const eventEmitter = new NativeEventEmitter(PolarBleModule);
 
-const Row = ({device, setDeviceId, deviceId, setStatusDevice}) => {
-  const [status, setStatus] = useState('disconnected');
+const STATUS = {
+  DISCONNECTED: 'disconnected',
+};
 
+// eslint-disable-next-line no-shadow
+const streamEcg = deviceId => {
+  const to = setTimeout(() => {
+    PolarBleModule.streamECG(deviceId);
+    clearTimeout(to);
+  }, 2000);
+};
+
+const Row = ({device, currentDeviceConnected}) => {
   const onPressConnect = useCallback(() => {
-    if (status === 'disconnected') {
-      setDeviceId && setDeviceId(device?.id);
+    if (currentDeviceConnected?.status === STATUS.DISCONNECTED) {
+      PolarBleModule.connectDevice(device.id);
+      streamEcg(device.id);
     } else {
-      setDeviceId(null);
-      PolarBleModule.disConnect(deviceId);
+      PolarBleModule.disConnect(device.id);
     }
-  }, [device?.id, deviceId, status, setDeviceId]);
+  }, [currentDeviceConnected?.status, device]);
 
-  useEffect(() => {
-    const event = eventEmitter.addListener('status_change', data => {
-      setStatus(data.status);
-      setStatusDevice(data.status);
-    });
-    return () => event?.remove;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  if (deviceId && deviceId !== device.id) {
+  if (
+    currentDeviceConnected?.id &&
+    currentDeviceConnected?.id !== device.id &&
+    currentDeviceConnected.status !== STATUS.DISCONNECTED
+  ) {
     return null;
   }
 
@@ -45,11 +50,17 @@ const Row = ({device, setDeviceId, deviceId, setStatusDevice}) => {
     <View style={styles.row}>
       <View>
         <Text style={styles.text}>{device?.name}</Text>
-        {status !== 'disconnected' && <Text style={styles.text}>{status}</Text>}
+        {currentDeviceConnected?.status !== STATUS.DISCONNECTED && (
+          <Text style={styles.text}>{currentDeviceConnected?.status}</Text>
+        )}
       </View>
 
       <Button
-        title={status === 'disconnected' ? 'Connect' : 'Disconnect'}
+        title={
+          currentDeviceConnected?.status === STATUS.DISCONNECTED
+            ? 'Connect'
+            : 'Disconnect'
+        }
         onPress={onPressConnect}
       />
     </View>
@@ -58,10 +69,13 @@ const Row = ({device, setDeviceId, deviceId, setStatusDevice}) => {
 
 const App = () => {
   const [devices, setDevices] = useState([]);
-  const [deviceId, setDeviceId] = useState();
-  const [statusDevice, setStatusDevice] = useState();
   const [dataHr, setDataHr] = useState([]);
   const [ecgData, setEcgData] = useState([]);
+
+  // Separated
+  const [currentDeviceConnected, setCurrentDeviceConnected] = useState({
+    status: STATUS.DISCONNECTED,
+  });
 
   const onPressScan = useCallback(() => {
     setDevices([]);
@@ -70,69 +84,67 @@ const App = () => {
 
   useEffect(() => {
     eventEmitter.addListener('onDeviceFound', device => {
-      const findDevice = devices.find(item => item.id === device.id);
-      if (!findDevice) {
-        setDevices([...devices, device]);
-      }
+      setDevices(prev => {
+        if (!prev.some(i => i.id === device.id)) {
+          return prev.concat(device);
+        }
+        return prev;
+      });
     });
-  }, [devices]);
-
-  useEffect(() => {
-    let hrData = null;
-    let exgData = null;
-
-    if (deviceId) {
-      PolarBleModule.connectDevice(deviceId);
-      if (statusDevice === 'connected') {
-        setTimeout(() => {
-          PolarBleModule.streamECG(deviceId);
-        }, 2000);
-      }
-
-      hrData = eventEmitter.addListener('HrData', data => {
-        mqttSendMessage('PolarHrData', JSON.stringify(data));
-        const x = new Date();
-        setDataHr(prev => {
-          if (prev.length > 10) {
-            prev.shift();
-            return [...prev, {x, y: data.hr}];
-          } else {
-            return [...prev, {x, y: data.hr}];
-          }
-        });
-      });
-      exgData = eventEmitter.addListener('EcgData', data => {
-        mqttSendMessage('PolarEcgData', JSON.stringify(data));
-        setEcgData(prev => {
-          if (prev.length > 73 * 2) {
-            return prev.splice(73, prev.length).concat(data.samples);
-          } else {
-            return prev.concat(data.samples);
-          }
-        });
-      });
-    }
-
-    return () => {
-      if (hrData !== null) {
-        hrData.remove();
-      }
-      if (exgData !== null) {
-        exgData.remove();
-      }
-    };
-  }, [deviceId, statusDevice]);
+  }, []);
 
   useEffect(() => {
     permitPermissionFunction(keyPermission.LOCATION, () => {});
   }, []);
 
   useEffect(() => {
-    if (!deviceId) {
+    const hrEvent = eventEmitter.addListener('HrData', data => {
+      mqttSendMessage('PolarHrData', JSON.stringify(data));
+      const x = new Date();
+      setDataHr(prev => {
+        if (prev.length > 10) {
+          prev.shift();
+          return [...prev, {x, y: data.hr}];
+        } else {
+          return [...prev, {x, y: data.hr}];
+        }
+      });
+    });
+
+    const ecgEvent = eventEmitter.addListener('EcgData', data => {
+      mqttSendMessage('PolarEcgData', JSON.stringify(data));
+      setEcgData(prev => {
+        if (prev.length > 73 * 2) {
+          return prev.splice(73, prev.length).concat(data.samples);
+        } else {
+          return prev.concat(data.samples);
+        }
+      });
+    });
+
+    return () => {
+      hrEvent.remove();
+      ecgEvent.remove();
+    };
+  }, []);
+
+  useEffect(() => {
+    if (
+      currentDeviceConnected?.id &&
+      currentDeviceConnected.status === STATUS.DISCONNECTED
+    ) {
       setDataHr([]);
       setEcgData([]);
     }
-  }, [deviceId]);
+  }, [currentDeviceConnected?.id, currentDeviceConnected.status]);
+
+  useEffect(() => {
+    const event = eventEmitter.addListener('status_change', data => {
+      setCurrentDeviceConnected(data);
+    });
+    return () => event?.remove;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <ScrollView>
@@ -142,10 +154,8 @@ const App = () => {
         {devices?.map(item => (
           <Row
             device={item}
-            setDeviceId={setDeviceId}
             key={item.id}
-            deviceId={deviceId}
-            setStatusDevice={setStatusDevice}
+            currentDeviceConnected={currentDeviceConnected}
           />
         ))}
       </View>

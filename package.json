@@ -10,7 +10,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@eohjsc/react-native-polar": "^0.2.2",
+    "@eohjsc/react-native-polar": "^0.2.6",
     "paho-mqtt": "^1.1.0",
     "precompiled-mqtt": "^4.3.14-beta",
     "react": "18.1.0",
