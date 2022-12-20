@@ -20,7 +20,6 @@ const STATUS = {
   DISCONNECTED: 'disconnected',
 };
 
-// eslint-disable-next-line no-shadow
 const streamEcg = deviceId => {
   const to = setTimeout(() => {
     PolarBleModule.streamECG(deviceId);
@@ -83,14 +82,18 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    eventEmitter.addListener('onDeviceFound', device => {
-      setDevices(prev => {
-        if (!prev.some(i => i.id === device.id)) {
-          return prev.concat(device);
-        }
-        return prev;
-      });
-    });
+    const listenDeviceFound = eventEmitter.addListener(
+      'onDeviceFound',
+      device => {
+        setDevices(prev => {
+          if (!prev.some(i => i.id === device.id)) {
+            return prev.concat(device);
+          }
+          return prev;
+        });
+      },
+    );
+    return () => listenDeviceFound?.remove();
   }, []);
 
   useEffect(() => {
@@ -98,7 +101,7 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    const hrEvent = eventEmitter.addListener('HrData', data => {
+    const listenHrData = eventEmitter.addListener('HrData', data => {
       mqttSendMessage('PolarHrData', JSON.stringify(data));
       const x = new Date();
       setDataHr(prev => {
@@ -111,7 +114,7 @@ const App = () => {
       });
     });
 
-    const ecgEvent = eventEmitter.addListener('EcgData', data => {
+    const listenEcgData = eventEmitter.addListener('EcgData', data => {
       mqttSendMessage('PolarEcgData', JSON.stringify(data));
       setEcgData(prev => {
         if (prev.length > 73 * 2) {
@@ -123,8 +126,8 @@ const App = () => {
     });
 
     return () => {
-      hrEvent.remove();
-      ecgEvent.remove();
+      listenHrData?.remove();
+      listenEcgData?.remove();
     };
   }, []);
 
