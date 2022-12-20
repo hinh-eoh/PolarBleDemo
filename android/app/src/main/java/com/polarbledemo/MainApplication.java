@@ -10,7 +10,6 @@ import com.facebook.react.ReactPackage;
 import com.facebook.react.config.ReactFeatureFlags;
 import com.facebook.soloader.SoLoader;
 import com.polarbledemo.newarchitecture.MainApplicationReactNativeHost;
-import com.tuanpm.RCTMqtt.*;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
