@@ -159,7 +159,7 @@ const App = () => {
   }, []);
 
   return (
-    <View style={{paddingTop: 50}}>
+    <View style={{paddingTop: 60}}>
       <Button title="Scan" onPress={onPressScan} />
       <View style={styles.wrap}>
         {devices?.map(item => (
@@ -170,7 +170,7 @@ const App = () => {
           />
         ))}
       </View>
-      <ScrollView contentContainerStyle={{paddingVertical: 50}}>
+      <ScrollView contentContainerStyle={{paddingTop: 20, paddingBottom: 70}}>
         {!!dataHr.length && (
           <View style={styles.wrapHr}>
             <Text>Data Heart Rate</Text>
