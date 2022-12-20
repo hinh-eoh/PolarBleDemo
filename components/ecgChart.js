@@ -11,7 +11,7 @@ const EcgChart = ({dataEcg}) => {
   return (
     <View>
       <VictoryChart width={450} theme={VictoryTheme.material}>
-        <VictoryAxis offsetY={50} />
+        <VictoryAxis offsetY={50} tickFormat={() => ''} />
         <VictoryAxis
           dependentAxis
           tickFormat={x => x}
