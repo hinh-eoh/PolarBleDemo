@@ -159,9 +159,8 @@ const App = () => {
   }, []);
 
   return (
-    <ScrollView contentContainerStyle={{paddingVertical: 50}}>
+    <View style={{paddingTop: 50}}>
       <Button title="Scan" onPress={onPressScan} />
-
       <View style={styles.wrap}>
         {devices?.map(item => (
           <Row
@@ -171,34 +170,33 @@ const App = () => {
           />
         ))}
       </View>
-
-      {!!dataHr.length && (
-        <View style={styles.wrapHr}>
-          <Text>Data Heart Rate</Text>
-          <View style={styles.dataHr}>
-            <Text style={styles.textHr}>{dataHr[dataHr.length - 1].y}</Text>
+      <ScrollView contentContainerStyle={{paddingVertical: 50}}>
+        {!!dataHr.length && (
+          <View style={styles.wrapHr}>
+            <Text>Data Heart Rate</Text>
+            <View style={styles.dataHr}>
+              <Text style={styles.textHr}>{dataHr[dataHr.length - 1].y}</Text>
+            </View>
           </View>
-        </View>
-      )}
-      {!!dataHr.length && <HrChart dataHr={dataHr} />}
-
-      {!!ecgData.length && (
-        <View style={styles.wrapHr}>
-          <Text>Data ECG</Text>
-          <View style={styles.dataHr}>
-            {ecgData.slice(-73).map((item, index) => {
-              return (
-                <Text style={styles.textHr} key={index}>
-                  {item}
-                </Text>
-              );
-            })}
+        )}
+        {!!dataHr.length && <HrChart dataHr={dataHr} />}
+        {!!ecgData.length && (
+          <View style={styles.wrapHr}>
+            <Text>Data ECG</Text>
+            <View style={styles.dataHr}>
+              {ecgData.slice(-73).map((item, index) => {
+                return (
+                  <Text style={styles.textHr} key={index}>
+                    {item}
+                  </Text>
+                );
+              })}
+            </View>
           </View>
-        </View>
-      )}
-
-      {!!ecgData.length && <EcgChart dataEcg={ecgData} />}
-    </ScrollView>
+        )}
+        {!!ecgData.length && <EcgChart dataEcg={ecgData} />}
+      </ScrollView>
+    </View>
   );
 };
 

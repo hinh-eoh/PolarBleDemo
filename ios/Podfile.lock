@@ -379,8 +379,6 @@ PODS:
     - React-Core
   - RxSwift (6.5.0)
   - SocketRocket (0.6.0)
-  - sp-react-native-mqtt (0.5.1):
-    - React
   - SwiftProtobuf (1.20.3)
   - Yoga (1.14.0)
   - YogaKit (1.18.1):
@@ -449,7 +447,6 @@ DEPENDENCIES:
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - RNPermissions (from `../node_modules/react-native-permissions`)
   - RNSVG (from `../node_modules/react-native-svg`)
-  - sp-react-native-mqtt (from `../node_modules/sp-react-native-mqtt`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -546,8 +543,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-permissions"
   RNSVG:
     :path: "../node_modules/react-native-svg"
-  sp-react-native-mqtt:
-    :path: "../node_modules/sp-react-native-mqtt"
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
@@ -604,7 +599,6 @@ SPEC CHECKSUMS:
   RNSVG: 3a79c0c4992213e4f06c08e62730c5e7b9e4dc17
   RxSwift: 5710a9e6b17f3c3d6e40d6e559b9fa1e813b2ef8
   SocketRocket: fccef3f9c5cedea1353a9ef6ada904fde10d6608
-  sp-react-native-mqtt: 3aa5aa2187eb294307efc67e6ad112cbe2142ddb
   SwiftProtobuf: b02b5075dcf60c9f5f403000b3b0c202a11b6ae1
   Yoga: 99caf8d5ab45e9d637ee6e0174ec16fbbb01bcfc
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a

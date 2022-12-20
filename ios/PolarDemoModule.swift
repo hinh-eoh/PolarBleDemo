@@ -43,7 +43,7 @@ class PolarBleModule: RCTEventEmitter, PolarBleApiObserver, PolarBleApiPowerStat
        api.polarFilter(false)
   }
   
-  @objc func connectToDevice(_ id: String) -> Void {
+  @objc func connectDevice(_ id: String) -> Void {
       do {
         try self.api.connectToDevice(id)
       } catch {

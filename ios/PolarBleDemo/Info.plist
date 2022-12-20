@@ -3,11 +3,11 @@
 <plist version="1.0">
 <dict>
   <key>NSLocationWhenInUseUsageDescription</key>
-    <string>$(PRODUCT_NAME) only uses your location to display the weather and air quality.</string>
+	<string>$(PRODUCT_NAME) only uses your location to scan bluetooth</string>
   <key>NSBluetoothAlwaysUsageDescription</key>
-  <string>Allow $(PRODUCT_NAME) remote control smart devices via bluetooth</string>
+  <string>Allow $(PRODUCT_NAME) get data via bluetooth</string>
   <key>NSBluetoothPeripheralUsageDescription</key>
-  <string>Allow $(PRODUCT_NAME) remote control smart devices via bluetooth</string>
+  <string>Allow $(PRODUCT_NAME) get data via bluetooth</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
