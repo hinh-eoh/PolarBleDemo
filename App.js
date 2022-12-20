@@ -18,6 +18,7 @@ const eventEmitter = new NativeEventEmitter(PolarBleModule);
 
 const STATUS = {
   DISCONNECTED: 'disconnected',
+  CONNECTED: 'connected',
 };
 
 const streamEcg = deviceId => {
@@ -31,11 +32,19 @@ const Row = ({device, currentDeviceConnected}) => {
   const onPressConnect = useCallback(() => {
     if (currentDeviceConnected?.status === STATUS.DISCONNECTED) {
       PolarBleModule.connectDevice(device.id);
-      streamEcg(device.id);
     } else {
       PolarBleModule.disConnect(device.id);
     }
   }, [currentDeviceConnected?.status, device]);
+
+  useEffect(() => {
+    if (
+      currentDeviceConnected?.id === device.id &&
+      currentDeviceConnected?.status === STATUS.CONNECTED
+    ) {
+      streamEcg(device.id);
+    }
+  }, [currentDeviceConnected?.id, currentDeviceConnected?.status, device.id]);
 
   if (
     currentDeviceConnected?.id &&
@@ -150,7 +159,7 @@ const App = () => {
   }, []);
 
   return (
-    <ScrollView>
+    <ScrollView contentContainerStyle={{paddingVertical: 50}}>
       <Button title="Scan" onPress={onPressScan} />
 
       <View style={styles.wrap}>
